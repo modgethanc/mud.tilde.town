@@ -1,6 +1,8 @@
 from mud.core import *
 import random
 
+import expcalc
+
 bind.verb("kill", "kill|k|attack", {"doc":"Initiates combat with an opponent."})
 bind.verb_pattern("kill", "{1}")
 
@@ -86,13 +88,23 @@ def damage(a, dam, c):
     c["exp"] += exp
     understood.subject(c)
     say("You gain {0} experience for the kill.".format(exp))
-    # placeholder linear growth 
     lvl = c["level"]
     curr = c["exp"]
-    lvlbase = 100
+    
+    ### linear growth 
+    #lvlbase = 100
 
-    expected  = int(curr/lvlbase)
-    diff = expected-lvl
+    #expected  = int(curr/lvlbase)
+    #diff = expected-lvl
+
+    ### using exp calc
+    nextLvl = expcalc.expFor(lvl+1)
+    diff = 0
+    while curr > nextLvl:
+        diff += 1
+        print "+1!"
+
+        nextLvl = expcalc.expFor(lvl+diff+1)
 
     if diff >= 1:
         c["level"] += diff
