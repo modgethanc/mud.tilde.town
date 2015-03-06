@@ -1,4 +1,5 @@
 {"id":"player",
 "traits":true,
 "living": {"hpmax": "4d4"},
-"contents":[]}
+"contents":[],
+"exp":1200}

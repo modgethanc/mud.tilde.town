@@ -86,6 +86,21 @@ def damage(a, dam, c):
     c["exp"] += exp
     understood.subject(c)
     say("You gain {0} experience for the kill.".format(exp))
+    # placeholder linear growth 
+    lvl = c["level"]
+    curr = c["exp"]
+    lvlbase = 100
+
+    expected  = int(curr/lvlbase)
+    diff = expected-lvl
+
+    if diff >= 1:
+        c["level"] += diff
+        plural = ''
+        if diff > 2:
+            plural = 's'
+        say("You gain {0} level".format(diff)+plural+"!")
+
     understood.previous()
 
 @after("player", number, anything)
